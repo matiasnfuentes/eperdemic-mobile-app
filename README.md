@@ -1,2 +1,3 @@
-# eperdemic-mobile-app
-Aplicación mobile de notificaciones para Eperdemic.
+# Eperdemic Mobile App
+
+- Aplicación mobile de notificaciones para Eperdemic.
