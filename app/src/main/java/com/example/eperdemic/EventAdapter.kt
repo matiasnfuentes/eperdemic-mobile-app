@@ -28,10 +28,15 @@ class EventAdapter(
         notifyItemInserted(events.size - 1)
     }
 
+    fun clearEvents(){
+        events.clear()
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val curEvent = events[position]
         holder.itemView.apply {
-            tvEvento.text =  curEvent.text
+            tvEvento.text =  curEvent.momento + " : " + curEvent.text
         }
     }
 

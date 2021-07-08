@@ -10,8 +10,9 @@
         android:id="@+id/rvEventList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnFeedVector"
+        app:layout_constraintBottom_toTopOf="@+id/etInput"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,5 +40,23 @@
         android:text="Ubicacion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Clear"
+        app:layout_constraintBottom_toTopOf="@+id/btnFeedUbicacion"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/etInput"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese el valor de busqueda"
+        app:layout_constraintBottom_toTopOf="@+id/btnFeedVector"
+        app:layout_constraintEnd_toStartOf="@+id/btnClear"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
