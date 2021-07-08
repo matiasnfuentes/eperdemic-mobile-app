@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121376398940",
+    "project_id": "eperdemic-72d19",
+    "storage_bucket": "eperdemic-72d19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121376398940:android:18a32d25c987912760d099",
+        "android_client_info": {
+          "package_name": "com.example.eperdemic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121376398940-6nremcft10juto1qq403obhqrjncueqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzQzWZefHUc2MSY0EJ9kGQ1R6UuY4IhfM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121376398940-6nremcft10juto1qq403obhqrjncueqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
