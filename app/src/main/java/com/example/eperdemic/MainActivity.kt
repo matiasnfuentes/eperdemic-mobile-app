@@ -2,8 +2,11 @@ package com.example.eperdemic
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.eperdemic.dao.FirebaseEventDAO
 import com.example.eperdemic.services.FeedService
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -23,9 +26,64 @@ class MainActivity : AppCompatActivity() {
         rvEventList.adapter = eventAdapter
         rvEventList.layoutManager = LinearLayoutManager(this)
 
-        val feedService = FeedService(db, eventAdapter)
+        val eventDAO = FirebaseEventDAO(db, eventAdapter)
+        val feedService = FeedService(eventDAO)
 
         Firebase.messaging.subscribeToTopic("Pandemia")
+
+        db.collection("Mutacion")
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    Log.w("Error: ", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                val events = mutableListOf<Event>()
+                for (dc in value!!.documentChanges) {
+                    when (dc.type) {
+                        DocumentChange.Type.ADDED -> events.add(Event(dc.document.data["mensaje"].toString(),
+                                                                      dc.document.data["momento"].toString()))
+                    }
+                }
+
+                eventAdapter.showEvents(events)
+            }
+
+        db.collection("Contagio")
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    Log.w("Error: ", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                val events = mutableListOf<Event>()
+                for (dc in value!!.documentChanges) {
+                    when (dc.type) {
+                        DocumentChange.Type.ADDED -> events.add(Event(dc.document.data["mensaje"].toString(),
+                            dc.document.data["momento"].toString()))
+                    }
+                }
+
+                eventAdapter.showEvents(events)
+            }
+
+        db.collection("Arribo")
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    Log.w("Error: ", "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                val events = mutableListOf<Event>()
+                for (dc in value!!.documentChanges) {
+                    when (dc.type) {
+                        DocumentChange.Type.ADDED -> events.add(Event(dc.document.data["mensaje"].toString(),
+                            dc.document.data["momento"].toString()))
+                    }
+                }
+
+                eventAdapter.showEvents(events)
+            }
 
         btnFeedPatogeno.setOnClickListener {
             val tipo = etInput.text.toString()
@@ -55,6 +113,5 @@ class MainActivity : AppCompatActivity() {
         btnClear.setOnClickListener { eventAdapter.clearEvents() }
 
     }
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.eperdemic
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,11 +37,18 @@ class EventAdapter(
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val curEvent = events[position]
         holder.itemView.apply {
-            tvEvento.text =  curEvent.momento + " : " + curEvent.text
+            val time = "Día: " + curEvent.momento.substringBefore('T') + " Hora: " +curEvent.momento.substringAfter('T').substringBefore('Z')
+            tvMomento.text = time.subSequence(0,time.length-1)
+            tvMensaje.text =  curEvent.text
         }
     }
 
     override fun getItemCount(): Int {
         return events.size
+    }
+
+    fun showEvents(currentEvents: MutableList<Event>){
+        currentEvents.sortByDescending { it.momento }
+        currentEvents.forEach { addEvent(it) }
     }
 }
