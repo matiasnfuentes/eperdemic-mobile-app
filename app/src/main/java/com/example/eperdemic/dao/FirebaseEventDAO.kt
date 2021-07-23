@@ -36,34 +36,49 @@ class FirebaseEventDAO(private val db : FirebaseFirestore,
     }
 
     override fun feedVector(vectorId: String){
-
+        Log.e("El num pasado",vectorId + ".")
         val currentEvents = mutableListOf<Event>()
 
         db.collection("Arribo")
-            .whereEqualTo("vector.id", vectorId)
+            .whereEqualTo("vector.id", vectorId.toInt())
             .get()
             .addOnSuccessListener { documents ->
-                documents.forEach { currentEvents.add(getEvent(it)) }
-                getInfecciones(vectorId , currentEvents)
+                documents.forEach { currentEvents.add(getEvent(it)) ; Log.e("Error.", "Encontre algo.." + it)}
+                getTransmisiones(vectorId , currentEvents)
             }
+        Log.e("Error.", "entre a feed vector")
+    }
+
+    private fun getTransmisiones(vectorId : String, currentEvents:MutableList<Event>){
+
+        db.collection("Contagio")
+            .whereEqualTo("subtipo", "Contagio")
+            .whereEqualTo("transmisor.id", vectorId.toInt())
+            .get()
+            .addOnSuccessListener { documents ->
+                documents.forEach { currentEvents.add(getEvent(it)) ; Log.e("Error.", "Encontre algo.." + it)}
+                getInfecciones(vectorId, currentEvents)
+            }
+        Log.e("Error.", "entre a feed vector")
     }
 
     private fun getInfecciones(vectorId : String, currentEvents:MutableList<Event>){
 
         db.collection("Contagio")
             .whereEqualTo("subtipo", "Contagio")
-            .whereEqualTo("transmisor.id", vectorId)
+            .whereEqualTo("infectado.id", vectorId.toInt())
             .get()
             .addOnSuccessListener { documents ->
-                documents.forEach { currentEvents.add(getEvent(it)) }
-                getContagios(currentEvents, listOf("Contagio"),"infectado.id", vectorId)
+                documents.forEach { currentEvents.add(getEvent(it)) ; Log.e("Error.", "Encontre algo.." + it)}
+                eventAdapter.showEvents(currentEvents)
             }
-
+        Log.e("Error.", "entre a feed vector")
     }
 
     private fun getContagios(currentEvents:MutableList<Event>,
-                             subtipos: List<String>,
-                             field : String, tipo: String){
+                             subtipos:List<String>,
+                             field: String,
+                             tipo : String){
 
         db.collection("Contagio")
             .whereEqualTo(field, tipo)
@@ -73,6 +88,7 @@ class FirebaseEventDAO(private val db : FirebaseFirestore,
                 documents.forEach { currentEvents.add(getEvent(it)) }
                 eventAdapter.showEvents(currentEvents)
             }
+        Log.e("Error.", "entre a feed vector")
     }
 
     private fun getEvent(document: QueryDocumentSnapshot) : Event {

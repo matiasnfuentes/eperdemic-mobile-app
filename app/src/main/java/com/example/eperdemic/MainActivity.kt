@@ -102,13 +102,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnFeedVector.setOnClickListener {
-            val vectorId = etInput.text.toString()
-            if(vectorId.isNotEmpty()){
-                feedService.feedVector(vectorId)
+            val id = etInput.text.toString()
+            if(id.isNotEmpty()){
+                feedService.feedVector(id)
                 etInput.text.clear()
             }
-
         }
+
 
         btnClear.setOnClickListener { eventAdapter.clearEvents() }
 
