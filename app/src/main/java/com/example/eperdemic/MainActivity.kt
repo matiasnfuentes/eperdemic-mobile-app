@@ -41,8 +41,9 @@ class MainActivity : AppCompatActivity() {
                 val events = mutableListOf<Event>()
                 for (dc in value!!.documentChanges) {
                     when (dc.type) {
-                        DocumentChange.Type.ADDED -> events.add(Event(dc.document.data["mensaje"].toString(),
-                                                                      dc.document.data["momento"].toString()))
+                        DocumentChange.Type.ADDED ->
+                            events.add(Event(dc.document.data["mensaje"].toString(),
+                            dc.document.data["momento"].toString()))
                     }
                 }
 
@@ -59,7 +60,8 @@ class MainActivity : AppCompatActivity() {
                 val events = mutableListOf<Event>()
                 for (dc in value!!.documentChanges) {
                     when (dc.type) {
-                        DocumentChange.Type.ADDED -> events.add(Event(dc.document.data["mensaje"].toString(),
+                        DocumentChange.Type.ADDED ->
+                            events.add(Event(dc.document.data["mensaje"].toString(),
                             dc.document.data["momento"].toString()))
                     }
                 }
@@ -77,7 +79,8 @@ class MainActivity : AppCompatActivity() {
                 val events = mutableListOf<Event>()
                 for (dc in value!!.documentChanges) {
                     when (dc.type) {
-                        DocumentChange.Type.ADDED -> events.add(Event(dc.document.data["mensaje"].toString(),
+                        DocumentChange.Type.ADDED ->
+                            events.add(Event(dc.document.data["mensaje"].toString(),
                             dc.document.data["momento"].toString()))
                     }
                 }

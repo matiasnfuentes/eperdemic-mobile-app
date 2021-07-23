@@ -36,17 +36,16 @@ class FirebaseEventDAO(private val db : FirebaseFirestore,
     }
 
     override fun feedVector(vectorId: String){
-        Log.e("El num pasado",vectorId + ".")
+
         val currentEvents = mutableListOf<Event>()
 
         db.collection("Arribo")
             .whereEqualTo("vector.id", vectorId.toInt())
             .get()
             .addOnSuccessListener { documents ->
-                documents.forEach { currentEvents.add(getEvent(it)) ; Log.e("Error.", "Encontre algo.." + it)}
+                documents.forEach { currentEvents.add(getEvent(it))}
                 getTransmisiones(vectorId , currentEvents)
             }
-        Log.e("Error.", "entre a feed vector")
     }
 
     private fun getTransmisiones(vectorId : String, currentEvents:MutableList<Event>){
@@ -56,10 +55,10 @@ class FirebaseEventDAO(private val db : FirebaseFirestore,
             .whereEqualTo("transmisor.id", vectorId.toInt())
             .get()
             .addOnSuccessListener { documents ->
-                documents.forEach { currentEvents.add(getEvent(it)) ; Log.e("Error.", "Encontre algo.." + it)}
+                documents.forEach { currentEvents.add(getEvent(it)) }
                 getInfecciones(vectorId, currentEvents)
             }
-        Log.e("Error.", "entre a feed vector")
+
     }
 
     private fun getInfecciones(vectorId : String, currentEvents:MutableList<Event>){
@@ -69,10 +68,10 @@ class FirebaseEventDAO(private val db : FirebaseFirestore,
             .whereEqualTo("infectado.id", vectorId.toInt())
             .get()
             .addOnSuccessListener { documents ->
-                documents.forEach { currentEvents.add(getEvent(it)) ; Log.e("Error.", "Encontre algo.." + it)}
+                documents.forEach { currentEvents.add(getEvent(it)) }
                 eventAdapter.showEvents(currentEvents)
             }
-        Log.e("Error.", "entre a feed vector")
+
     }
 
     private fun getContagios(currentEvents:MutableList<Event>,
@@ -88,7 +87,7 @@ class FirebaseEventDAO(private val db : FirebaseFirestore,
                 documents.forEach { currentEvents.add(getEvent(it)) }
                 eventAdapter.showEvents(currentEvents)
             }
-        Log.e("Error.", "entre a feed vector")
+
     }
 
     private fun getEvent(document: QueryDocumentSnapshot) : Event {
